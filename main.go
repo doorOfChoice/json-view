@@ -10,11 +10,14 @@ import(
 
 
 func main() {
-	f, err := os.Open("../a.json")
+	if len(os.Args) == 0 {
+		return
+	}
+
+	f, err := os.Open(os.Args[1])
 
 	if(err != nil) {
-		fmt.Println(err.Error())
-		return
+		panic("open file" + err.Error())
 	}
 
 	buf, err := ioutil.ReadAll(f)
