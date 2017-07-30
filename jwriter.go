@@ -5,10 +5,6 @@ import(
 )
 
 
-type JWriter interface {
-	WriteLine(string, termbox.Attribute)
-	NewLine()
-} 
 
 type Char struct {
 	Val rune
