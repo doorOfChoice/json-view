@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-
+	"strings"
 	"github.com/nsf/termbox-go"
 )
 
@@ -57,6 +57,12 @@ func tprint(x, y int, str string, fg termbox.Attribute, bg termbox.Attribute) in
 	return len(str)
 }
 
+func writeNum(x, y, n, max int) int{
+	s := fmt.Sprintf("%d", n)
+	s += strings.Repeat(" ", max - len(s))
+	return tprint(x, y, s, NUMBER, DEFAULT)
+}
+
 //渲染
 func (this *JTerm) Render() {
 	termbox.Clear(DEFAULT, DEFAULT)
@@ -66,7 +72,8 @@ func (this *JTerm) Render() {
 		if line == nil {
 			continue
 		}
-		s := tprint(0, i, fmt.Sprintf("%-5d", i+1+this.shift), NUMBER, DEFAULT)
+		maxlen := len(fmt.Sprintf("%d", len(this.jtree.lines)))
+		s := writeNum(0, i, i + 1 + this.shift, maxlen)
 		for j, v := range line {
 			termbox.SetCell(j+s, i, v.Val, v.Attribute, DEFAULT)
 		}

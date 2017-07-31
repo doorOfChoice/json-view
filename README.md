@@ -23,6 +23,8 @@ go build -o json
 [→] move right
 [F2] close toggle
 [F3] open all json
+[W] move up 5 unit
+[S] move down 5 unit
 [Ctrl + C] exit 
 ```
 
