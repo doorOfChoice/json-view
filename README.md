@@ -30,6 +30,4 @@ go build -o json
 
 ## View
 
-![](./one.png)
-
-![](./two.png)
+![](./out.gif)

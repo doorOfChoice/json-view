@@ -14,7 +14,7 @@ const (
 	NUMBER  = termbox.ColorYellow
 	DELIM   = termbox.ColorWhite
 	BOOLEAN = termbox.ColorRed
-	DEFAULT = termbox.ColorDefault
+	DEFAULT = termbox.ColorBlack
 )
 
 type JParse struct {
@@ -121,5 +121,5 @@ func (this *JParse) formatArray(a []interface{}) {
 }
 
 func (this *JParse) writeIndet() {
-	this.WriteLine(strings.Repeat(" ", this.depth*4), DEFAULT)
+	this.WriteLine(strings.Repeat(" ", this.depth*4), DELIM)
 }
