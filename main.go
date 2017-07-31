@@ -1,13 +1,12 @@
 package main
 
-import(
+import (
 	// "encoding/json"
-	 "io/ioutil"
-	 "os"
 	"fmt"
-//"github.com/nsf/termbox-go"
+	"io/ioutil"
+	"os"
+	//"github.com/nsf/termbox-go"
 )
-
 
 func main() {
 	if len(os.Args) == 0 {
@@ -16,13 +15,13 @@ func main() {
 
 	f, err := os.Open(os.Args[1])
 
-	if(err != nil) {
+	if err != nil {
 		panic("open file" + err.Error())
 	}
 
 	buf, err := ioutil.ReadAll(f)
 
-	if(err != nil) {
+	if err != nil {
 		fmt.Println(err.Error())
 		return
 	}
@@ -32,7 +31,7 @@ func main() {
 	g2.Format()
 
 	tree := NewJTree(g.Lines)
-	
+
 	tree.isStart(0)
 
 	term := NewJTerm(tree)

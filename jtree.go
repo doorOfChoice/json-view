@@ -1,26 +1,26 @@
-package main 
+package main
 
-import(
+import (
 	"unicode"
 )
 
 type JTree struct {
-	lines []Line			//完整的结果
-	extendedLine map[int]int//展开的行
-	startLine map[int]int   //最开始行的起始点和结束点
-	lineMap map[int]int     //虚拟地址对应的实际地址
+	lines        []Line      //完整的结果
+	extendedLine map[int]int //展开的行
+	startLine    map[int]int //最开始行的起始点和结束点
+	lineMap      map[int]int //虚拟地址对应的实际地址
 }
 
-func NewJTree(lines []Line) *JTree{
-	tree := &JTree {
-		lines : lines,
-		extendedLine : make(map[int]int),
-		lineMap : make(map[int]int),
-		startLine : parseStartMap(lines),
+func NewJTree(lines []Line) *JTree {
+	tree := &JTree{
+		lines:        lines,
+		extendedLine: make(map[int]int),
+		lineMap:      make(map[int]int),
+		startLine:    parseStartMap(lines),
 	}
 
 	tree.parseLineMap()
-	
+
 	return tree
 }
 
@@ -32,10 +32,10 @@ func (this *JTree) Line(virLn int) Line {
 		if !this.isExtended(actualLn) && this.isStart(actualLn) {
 			return this.linedot(actualLn)
 		}
-		
+
 		return this.lines[actualLn]
 	}
-	
+
 	return nil
 }
 
@@ -47,8 +47,8 @@ func (this *JTree) Toggle(virLn int) {
 		if this.isStart(actualLn) {
 			if !this.isExtended(actualLn) {
 				this.extendedLine[actualLn] = actualLn
-			}else {
-				delete(this.extendedLine, actualLn)	
+			} else {
+				delete(this.extendedLine, actualLn)
 			}
 		}
 		this.parseLineMap()
@@ -71,13 +71,13 @@ func (this *JTree) OpenToggleAll() {
 }
 
 //生成省略号
-func (this *JTree) linedot(actualLn int) Line{
+func (this *JTree) linedot(actualLn int) Line {
 	line := this.lines[actualLn]
-	line = append(line, Char{'…',DELIM})
+	line = append(line, Char{'…', DELIM})
 
 	for _, v1 := range this.lines[this.startLine[actualLn]] {
 		if !unicode.IsSpace(v1.Val) {
-			line = append(line, Char{v1.Val,DELIM})
+			line = append(line, Char{v1.Val, DELIM})
 		}
 	}
 
@@ -115,12 +115,12 @@ func (this *JTree) parseLineMap() {
 		n[virLn] = actualLn
 		virLn++
 	}
-	
+
 	this.lineMap = n
 }
 
 //寻找到所有的开始行
-func parseStartMap(lines []Line) map[int]int{
+func parseStartMap(lines []Line) map[int]int {
 	startMap := make(map[int]int)
 	resultMap := make(map[int]int)
 	index := 0
@@ -128,11 +128,11 @@ func parseStartMap(lines []Line) map[int]int{
 	for i, v1 := range lines {
 		for _, v2 := range v1 {
 			switch v2.Val {
-			case '{', '[' :
+			case '{', '[':
 				startMap[index] = i
 				index++
 			case '}', ']':
-				if s := startMap[index - 1]; s != i {
+				if s := startMap[index-1]; s != i {
 					resultMap[s] = i
 				}
 				index--

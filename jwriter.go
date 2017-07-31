@@ -1,17 +1,16 @@
 package main
 
-import(
+import (
 	"github.com/nsf/termbox-go"
 )
-
 
 type JWriter interface {
 	WriteLine(string, termbox.Attribute)
 	NewLine()
-} 
+}
 
 type Char struct {
-	Val rune
+	Val       rune
 	Attribute termbox.Attribute
 }
 
@@ -19,12 +18,12 @@ type Line []Char
 
 type JWriterMan struct {
 	Lines []Line
-	line int
+	line  int
 }
 
-func NewJWriterMan() *JWriterMan{
-	p := &JWriterMan {
-		line : 0,
+func NewJWriterMan() *JWriterMan {
+	p := &JWriterMan{
+		line: 0,
 	}
 
 	p.Lines = append(p.Lines, Line{})
