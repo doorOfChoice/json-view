@@ -21,8 +21,8 @@ go build -o json
 [↓] move down
 [←] move left
 [→] move right
-[F2] close toggle
-[F3] open all json
+[E] close toggle
+[Q] open all json
 [W] move up 5 unit
 [S] move down 5 unit
 [A] move left 5 unit
